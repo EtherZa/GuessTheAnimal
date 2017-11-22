@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="r4mvc" Version="1.0.0-alpha1-00187" />
+    <PackageReference Include="r4mvc.tools" Version="1.0.0-alpha1-00187" />
   </ItemGroup>
 
   <ItemGroup>

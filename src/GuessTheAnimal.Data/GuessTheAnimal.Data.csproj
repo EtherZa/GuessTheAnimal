@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="dapper" Version="1.50.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GuessTheAnimal.Contracts\GuessTheAnimal.Contracts.csproj" />
   </ItemGroup>
 

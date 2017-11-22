@@ -1,0 +1,23 @@
+﻿@model QuizViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="row">
+        <h2>Quiz</h2>
+
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <p>@Model.Question</p>
+
+            <input type="hidden" name="@nameof(QuizViewModel.Token)" value="@Model.Token" />
+
+            <button type="submit" class="btn" name="@nameof(QuizViewModel.Include)" value="true">Yes</button>
+            <button type="submit" class="btn" name="@nameof(QuizViewModel.Include)" value="false">No</button>
+        }
+    </div>
+</div>

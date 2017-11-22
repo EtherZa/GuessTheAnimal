@@ -1,0 +1,7 @@
+﻿CREATE TABLE dbo.Animal
+(
+	Id INT NOT NULL,
+	Name VARCHAR(100) NOT NULL
+	CONSTRAINT PK_Animal_Id PRIMARY KEY (Id),
+	CONSTRAINT UC_Animal_Name UNIQUE (Name)
+)

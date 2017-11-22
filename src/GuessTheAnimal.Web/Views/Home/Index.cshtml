@@ -1,6 +1,19 @@
-﻿@{
+﻿@model IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="row">
+    <div class="row">
+        <h2>Guess the animal</h2>
+        <h3>Please select an animal and begin the quiz:</h3>
+        <ul class="horizontal-list">
+            @foreach (var item in Model.Animals)
+            {
+                <li>@item</li>
+            }
+        </ul>
+
+        @Html.ActionLink("Begin", MVC.Home.Quiz(), new { @class = "btn btn-default", title = "Begin quiz" })
+    </div>
 </div>

@@ -1,0 +1,12 @@
+﻿@model AnswerViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="row">
+        <h2>Animals</h2>
+        <p>You were thinking of a @Model.Name.</p>
+    </div>
+    @Html.ActionLink("Have another go", MVC.Home.Index(), new { @class = "btn btn-default" })
+</div>

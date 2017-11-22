@@ -1,0 +1,12 @@
+﻿@model HandledErrorViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="row">
+        <h2>An error occured</h2>
+        <p>@Model.Description</p>
+    </div>
+    @Html.ActionLink("Have another go", MVC.Home.Index(), new { @class = "btn btn-default" })
+</div>

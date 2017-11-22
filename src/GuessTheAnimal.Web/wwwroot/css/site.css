@@ -7,3 +7,19 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+ul.horizontal-list li
+{
+    display: block;
+    float: left;
+    width: 100px;
+}
+
+ul.horizontal-list:after
+{
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
