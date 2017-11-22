@@ -59,9 +59,9 @@
             return new Token
                        {
                            Included = context.Included?.Select(x => x.Id)
-                               .ToArray(),
+                                             .ToArray(),
                            Excluded = context.Excluded?.Select(x => x.Id)
-                               .ToArray(),
+                                             .ToArray(),
                            Current = context.Current?.Id
                        };
         }

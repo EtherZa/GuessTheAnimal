@@ -26,7 +26,10 @@
                 out var availableAnimals,
                 out var availableAttributes);
 
-            var context = new Context { Current = this.ChooseBestAttribute(availableAnimals, availableAttributes) };
+            var context = new Context
+                              {
+                                  Current = this.ChooseBestAttribute(availableAnimals, availableAttributes)
+                              };
 
             return new Result
                        {
@@ -39,9 +42,21 @@
         public IResult ProcessResult(string token, bool include)
         {
             var context = this.contextTokenizer.GetContext(token);
-            var included = (include ? context.Included.Union(new[] { context.Current }) : context.Included).ToArray();
+            var included = (include
+                                ? context.Included.Union(
+                                    new[]
+                                        {
+                                            context.Current
+                                        })
+                                : context.Included).ToArray();
 
-            var excluded = (include ? context.Excluded : context.Excluded.Union(new[] { context.Current })).ToArray();
+            var excluded = (include
+                                ? context.Excluded
+                                : context.Excluded.Union(
+                                    new[]
+                                        {
+                                            context.Current
+                                        })).ToArray();
 
             this.GetAvailableItems(included, excluded, out var availableAnimals, out var availableAttributes);
 
@@ -51,7 +66,7 @@
                            {
                                Status = Status.Success,
                                Comment = availableAnimals.Single()
-                                   .Name
+                                                         .Name
                            };
             }
 
@@ -67,7 +82,12 @@
             }
 
             var question = this.ChooseBestAttribute(availableAnimals, availableAttributes);
-            context = new Context { Included = included, Excluded = excluded, Current = question };
+            context = new Context
+                          {
+                              Included = included,
+                              Excluded = excluded,
+                              Current = question
+                          };
 
             return new Result
                        {
@@ -88,22 +108,22 @@
             // exclude any animal that does not have all included attributes
 
             var excludeIds = exclude.Select(x => x.Id)
-                .ToArray();
+                                    .ToArray();
             var includeIds = include.Select(a => a.Id)
-                .ToArray();
+                                    .ToArray();
 
             var animals = (from a in this.animalService.GetAnimals()
                            where !a.Attributes.Select(x => x.Id)
-                                     .Intersect(excludeIds)
-                                     .Any()
+                                   .Intersect(excludeIds)
+                                   .Any()
                            select a).ToList();
 
             if (includeIds.Any())
             {
                 animals.RemoveAll(
                     x => x.Attributes.Select(a => a.Id)
-                             .Intersect(includeIds)
-                             .Count() != includeIds.Length);
+                          .Intersect(includeIds)
+                          .Count() != includeIds.Length);
             }
 
             availableAnimals = animals.ToArray();
@@ -121,17 +141,21 @@
             IEnumerable<IAttribute> availableAttributes)
         {
             var availableIds = availableAttributes.Select(x => x.Id)
-                .ToArray();
+                                                  .ToArray();
 
             // Choose the question which is going to result in the greatest split
             var midpoint = (double)availableAnimals.Count() / 2;
             var q = from n in this.animalService.GetAttributes()
                     where availableIds.Contains(n.Key.Id)
-                    select new { Attribute = n.Key, Deviation = Math.Abs(n.Value.Count() - midpoint) };
+                    select new
+                               {
+                                   Attribute = n.Key,
+                                   Deviation = Math.Abs(n.Value.Count() - midpoint)
+                               };
 
             return q.OrderBy(x => x.Deviation)
-                .First()
-                .Attribute;
+                    .First()
+                    .Attribute;
         }
 
         private sealed class Context : IContext

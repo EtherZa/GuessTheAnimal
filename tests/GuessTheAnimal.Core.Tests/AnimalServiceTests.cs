@@ -15,8 +15,8 @@
             {
                 var mockRepo = new Mock<IAnimalRepository>(MockBehavior.Strict);
                 mockRepo.Setup(x => x.GetAll())
-                    .Returns(() => new IRepositoryAnimal[0])
-                    .Verifiable();
+                        .Returns(() => new IRepositoryAnimal[0])
+                        .Verifiable();
 
                 var target = new AnimalService(mockRepo.Object);
 

@@ -30,7 +30,10 @@
         public virtual IActionResult Error()
         {
             return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+                new ErrorViewModel
+                    {
+                        RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier
+                    });
         }
 
         [HttpGet]
@@ -44,8 +47,8 @@
             var model = new IndexViewModel
                             {
                                 Animals = this.animalService.GetAnimalNames()
-                                    .OrderBy(x => x)
-                                    .ToArray()
+                                              .OrderBy(x => x)
+                                              .ToArray()
                             };
 
             return this.View(model);
@@ -54,7 +57,11 @@
         public virtual IActionResult Quiz()
         {
             var q = this.gameService.GetInitialQuestion();
-            var model = new QuizViewModel { Token = q.Token, Question = q.Comment };
+            var model = new QuizViewModel
+                            {
+                                Token = q.Token,
+                                Question = q.Comment
+                            };
 
             return this.View(model);
         }
@@ -69,13 +76,25 @@
                 case Status.Error:
                     return this.RedirectToAction(
                         nameof(this.HandledError),
-                        new HandledErrorViewModel { Description = result.Comment });
+                        new HandledErrorViewModel
+                            {
+                                Description = result.Comment
+                            });
 
                 case Status.Success:
-                    return this.RedirectToAction(nameof(this.Answer), new AnswerViewModel { Name = result.Comment });
+                    return this.RedirectToAction(
+                        nameof(this.Answer),
+                        new AnswerViewModel
+                            {
+                                Name = result.Comment
+                            });
 
                 case Status.Asking:
-                    var quizViewModel = new QuizViewModel { Token = result.Token, Question = result.Comment };
+                    var quizViewModel = new QuizViewModel
+                                            {
+                                                Token = result.Token,
+                                                Question = result.Comment
+                                            };
                     return this.View(quizViewModel);
 
                 default:

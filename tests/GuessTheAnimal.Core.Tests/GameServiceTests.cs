@@ -20,24 +20,49 @@
             public void ExcludeAnimalsWhereAttributeHasBeenExplicitlyExcluded()
             {
                 var includeAttributes = new IAttribute[0];
-                var excludeAttributes = new IAttribute[] { new Attribute(1), new Attribute(2) };
+                var excludeAttributes = new IAttribute[]
+                                            {
+                                                new Attribute(1),
+                                                new Attribute(2)
+                                            };
 
-                var includeAnimals = new[] { new Animal(3, 4), new Animal(3, 5) };
-                var excludeAnimals = new[] { new Animal(1), new Animal(2, 3) };
+                var includeAnimals = new[]
+                                         {
+                                             new Animal(3, 4),
+                                             new Animal(3, 5)
+                                         };
+                var excludeAnimals = new[]
+                                         {
+                                             new Animal(1),
+                                             new Animal(2, 3)
+                                         };
 
-                PerformInclusionTest(includeAnimals, excludeAnimals, includeAttributes, excludeAttributes);
+                GetAvailableItems.PerformInclusionTest(includeAnimals, excludeAnimals, includeAttributes, excludeAttributes);
             }
 
             [Fact]
             public void ExcludeAnimalsWhichDoNotHaveExplicitlyIncludedAttribute()
             {
-                var includeAttributes = new IAttribute[] { new Attribute(3), new Attribute(4) };
+                var includeAttributes = new IAttribute[]
+                                            {
+                                                new Attribute(3),
+                                                new Attribute(4)
+                                            };
                 var excludeAttributes = new IAttribute[0];
 
-                var includeAnimals = new[] { new Animal(3, 4), new Animal(3, 4, 5) };
-                var excludeAnimals = new[] { new Animal(1), new Animal(2), new Animal(3) };
+                var includeAnimals = new[]
+                                         {
+                                             new Animal(3, 4),
+                                             new Animal(3, 4, 5)
+                                         };
+                var excludeAnimals = new[]
+                                         {
+                                             new Animal(1),
+                                             new Animal(2),
+                                             new Animal(3)
+                                         };
 
-                PerformInclusionTest(includeAnimals, excludeAnimals, includeAttributes, excludeAttributes);
+                GetAvailableItems.PerformInclusionTest(includeAnimals, excludeAnimals, includeAttributes, excludeAttributes);
             }
 
             private static void PerformInclusionTest(
@@ -48,8 +73,8 @@
             {
                 var mockAnimalService = new Mock<IAnimalService>(MockBehavior.Strict);
                 mockAnimalService.Setup(x => x.GetAnimals())
-                    .Returns(() => includeAnimals.Union(excludeAnimals))
-                    .Verifiable();
+                                 .Returns(() => includeAnimals.Union(excludeAnimals))
+                                 .Verifiable();
 
                 var mockContextTokenizer = new Mock<IContextTokenizer>(MockBehavior.Strict);
 

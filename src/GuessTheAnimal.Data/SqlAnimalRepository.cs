@@ -33,16 +33,16 @@
 
                 var dictionary = new ConcurrentDictionary<string, Animal>();
                 return con.Query<Animal, Attribute, Animal>(
-                        Sql,
-                        (p, c) =>
-                            {
-                                var item = dictionary.GetOrAdd(p.Name, x => p);
-                                item.Add(c);
-                                return item;
-                            },
-                        splitOn: "Id",
-                        commandType: CommandType.Text)
-                    .Distinct();
+                              Sql,
+                              (p, c) =>
+                                  {
+                                      var item = dictionary.GetOrAdd(p.Name, x => p);
+                                      item.Add(c);
+                                      return item;
+                                  },
+                              splitOn: "Id",
+                              commandType: CommandType.Text)
+                          .Distinct();
             }
         }
 

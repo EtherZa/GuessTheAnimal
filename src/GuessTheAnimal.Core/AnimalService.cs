@@ -32,7 +32,7 @@
             this.EnsureLoaded();
 
             return this.animals.Select(x => x.Name)
-                .OrderBy(x => x);
+                       .OrderBy(x => x);
         }
 
         public IEnumerable<IAnimal> GetAnimals()
@@ -71,17 +71,21 @@
                 }
 
                 this.animals = this.animalRepository.GetAll()
-                    .Select(
-                        x =>
-                            {
-                                return new Animal
+                                   .Select(
+                                       x =>
                                            {
-                                               Name = x.Name,
-                                               Attributes = x.Attributes.Select(
-                                                   y => new Attribute { Id = y.Id, Description = y.Description })
-                                           };
-                            })
-                    .ToArray();
+                                               return new Animal
+                                                          {
+                                                              Name = x.Name,
+                                                              Attributes = x.Attributes.Select(
+                                                                  y => new Attribute
+                                                                           {
+                                                                               Id = y.Id,
+                                                                               Description = y.Description
+                                                                           })
+                                                          };
+                                           })
+                                   .ToArray();
 
                 // reverse the dictionary
                 var attribs = new ConcurrentDictionary<int, IAttribute>();
@@ -93,7 +97,7 @@
                         var key = attribs.GetOrAdd(attribute.Id, x => attribute);
 
                         lookup.GetOrAdd(key, k => new List<IAnimal>())
-                            .Add(animal);
+                              .Add(animal);
                     }
                 }
 
